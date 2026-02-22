@@ -23,14 +23,14 @@ namespace BeeSys.Utilities.Middleware
             var endpoint = context.FunctionDefinition.EntryPoint;
             var method = GetMethodInfo(endpoint);
 
-            // ✅ If AllowAnonymous is present → skip auth
+            // If AllowAnonymous is present → skip auth
             if (method?.GetCustomAttribute<AllowAnonymousAttribute>() != null)
             {
                 await next(context);
                 return;
             }
 
-            // ✅ If no Authorize attribute → skip auth
+            // If no Authorize attribute → skip auth
             if (method?.GetCustomAttribute<AuthorizeAttribute>() == null)
             {
                 await next(context);
